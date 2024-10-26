@@ -1,0 +1,17 @@
+WellCo
+│
+├── backend/
+│   ├── app.py
+│   ├── config.py
+│   ├── requirements.txt
+│   └── templates/
+│       └── index.html
+│
+└── frontend/
+    ├── src/
+    │   ├── App.js
+    │   ├── index.js
+    │   └── components/
+    │       └── Chatbot.js
+    └── public/
+        └── index.html
