@@ -1,0 +1,126 @@
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif; /* Use a modern font */
+  background: linear-gradient(135deg, #1c1c1e, #2c2c2e); /* Base dark gradient */
+  overflow: hidden; /* Prevent overflow for animations */
+}
+
+.App {
+  text-align: center;
+  padding: 20px;
+  min-height: 100vh; /* Full height for the container */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Allows positioning of background animations */
+}
+
+.app-title {
+  font-size: 2.5rem; /* Large title */
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #00ffcc, #007BFF); /* Gradient text */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glow 1.5s infinite alternate; /* Glowing effect */
+}
+
+@keyframes glow {
+  0% {
+      text-shadow: 0 0 5px rgba(0, 255, 204, 0.7), 0 0 10px rgba(0, 255, 204, 0.7);
+  }
+  100% {
+      text-shadow: 0 0 20px rgba(0, 255, 204, 1), 0 0 30px rgba(0, 255, 204, 1);
+  }
+}
+
+.chat-container {
+  background-color: rgba(30, 30, 30, 0.8); /* Slightly transparent background for the chatbot */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 123, 255, 0.5);
+  max-width: 500px;
+  width: 100%; /* Full width on smaller screens */
+}
+
+input[type="text"] {
+  border: 1px solid #00ffcc; /* Light border */
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #1c1c1e; /* Dark background for input */
+  color: #fff; /* White text */
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+  border-color: #007BFF; /* Border color on focus */
+  outline: none; /* Remove outline */
+}
+
+button {
+  background-color: #00ffcc; /* Button color */
+  color: #000; /* Button text color */
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s; /* Added transform for hover */
+}
+
+button:hover {
+  background-color: #007BFF; /* Darker shade on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Add animated background shapes */
+@keyframes move {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-30px);
+  }
+}
+
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: move 5s ease-in-out infinite alternate;
+}
+
+.shape1 {
+  background: rgba(0, 255, 204, 0.4);
+  width: 100px;
+  height: 100px;
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.shape2 {
+  background: rgba(0, 123, 255, 0.4);
+  width: 150px;
+  height: 150px;
+  top: 70%;
+  right: 15%;
+  animation-delay: 1s;
+}
+
+.shape3 {
+  background: rgba(255, 193, 7, 0.4);
+  width: 120px;
+  height: 120px;
+  top: 60%;
+  left: 30%;
+  animation-delay: 2s;
+}
+
+.shape4 {
+  background: rgba(255, 0, 0, 0.4);
+  width: 80px;
+  height: 80px;
+  bottom: 10%;
+  right: 25%;
+  animation-delay: 3s;
+}
