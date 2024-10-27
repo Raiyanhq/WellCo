@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
 
 const Chatbot = () => {
     const [userInput, setUserInput] = useState('');
     const [chatHistory, setChatHistory] = useState([]);
     const [loading, setLoading] = useState(false);
-    const chatContainerRef = useRef(null); // Reference to the chat history container
+    const chatContainerRef = useRef(null);
 
     // Predefined questions and answers
     const qaPairs = {
@@ -52,7 +51,7 @@ const Chatbot = () => {
           "What are ways to cultivate a positive mindset?": "Cultivating a positive mindset involves intentionally focusing on the good, no matter how small it may seem. Practicing gratitude, challenging negative thoughts, and finding joy in simple moments can help shift your perspective over time.",
         
           // Meditation Benefits
-          "What are the benefits of meditation?": "Meditation can be incredibly grounding. It helps lower stress, increase self-awareness, and improve your focus. You might find that a few minutes of quiet breathing each day helps you reconnect with yourself and the present moment.",
+          "Tell me the benefits of meditation": "Meditation can be incredibly grounding. It helps lower stress, increase self-awareness, and improve your focus. You might find that a few minutes of quiet breathing each day helps you reconnect with yourself and the present moment.",
           "How does meditation help?": "Meditation can create a space of calm within you. It helps in managing stress, reducing anxiety, and enhancing clarity of thought. Think of it as a way to tune into your mind and find a moment of peace in the chaos of everyday life.",
 
             // Motivational Encouragement
@@ -110,7 +109,7 @@ const Chatbot = () => {
     useEffect(() => {
       setChatHistory([{ user: '', bot: 'Hi, I am WellBot! How can I assist you today?' }]);
   }, []);
-  
+
   const handleInputChange = (event) => {
       setUserInput(event.target.value);
   };
@@ -133,41 +132,85 @@ const Chatbot = () => {
       }, 1000);
   };
 
-  return (
-      <div className="chat-container">
-          <h1 className="app-title">WellBot</h1>
-          <div ref={chatContainerRef} style={{ maxHeight: '400px', overflowY: 'auto' }}>
-              {chatHistory.map((chat, index) => (
-                  <div key={index} style={{ marginBottom: '10px' }}>
-                      {chat.user && (
-                          <>
-                              <strong style={{ color: '#ff6a88' }}>You:</strong> <span>{chat.user}</span>
-                              <br />
-                          </>
-                      )}
-                      {chat.bot && (
-                          <>
-                              <strong style={{ color: '#ff9a8b' }}>WellBot:</strong> <span>{chat.bot}</span>
-                              <hr style={{ borderColor: '#ff6a88' }} />
-                          </>
-                      )}
-                  </div>
-              ))}
-              {loading && <div style={{ color: '#333' }}><em>Typing...</em></div>}
-          </div>
-          <form onSubmit={handleSubmit} style={{ display: 'flex', marginTop: '10px' }}>
-              <input
-                  type="text"
-                  value={userInput}
-                  onChange={handleInputChange}
-                  placeholder="Ask me anything..."
-                  style={{ flex: 1, padding: '10px', borderRadius: '5px', border: '1px solid #ff6a88', marginRight: '10px', backgroundColor: '#f7e9df', color: '#333', transition: 'all 0.3s ease' }}
-                  disabled={loading}
-              />
-              <button type="submit" disabled={loading} style={{ padding: '10px', borderRadius: '5px', backgroundColor: '#ff9a8b', color: 'white', border: 'none', transition: 'all 0.3s ease' }}>Send</button>
-          </form>
-      </div>
-  );
+   return (
+        <div style={{ 
+            maxWidth: '500px', 
+            margin: '0 auto', 
+            padding: '20px', 
+            border: '1px solid #63cdda', 
+            borderRadius: '15px', 
+            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)', 
+            backgroundColor: '#f0f7f4' 
+        }}>
+            <img src="/Users/raiyanhaque/Desktop/WellCo/frontend/src/Designer.svg" alt="" style={{ width: '80px', margin: '0 auto', display: 'circle' }} />
+            <h1 style={{ textAlign: 'center', color: '#333', fontFamily: 'Poppins, sans-serif' }}></h1>
+            <div 
+                ref={chatContainerRef}
+                style={{ 
+                    border: '1px solid #88d498', 
+                    padding: '10px', 
+                    height: '300px', 
+                    overflowY: 'scroll', 
+                    borderRadius: '10px', 
+                    backgroundColor: '#fff', 
+                    color: '#333', 
+                    boxShadow: 'inset 0 0 10px rgba(0, 0, 0, 0.1)' 
+                }}
+            >
+                {chatHistory.map((chat, index) => (
+                    <div key={index} style={{ marginBottom: '10px' }}>
+                        {chat.user && (
+                            <>
+                                <strong style={{ color: '#63cdda' }}>You:</strong> <span>{chat.user}</span>
+                                <br />
+                            </>
+                        )}
+                        {chat.bot && (
+                            <>
+                                <strong style={{ color: '#ff7f50' }}>WellBot:</strong> <span>{chat.bot}</span>
+                                <hr style={{ borderColor: '#88d498' }} />
+                            </>
+                        )}
+                    </div>
+                ))}
+                {loading && <div><em>Typing...</em></div>}
+            </div>
+            <form onSubmit={handleSubmit} style={{ display: 'flex', marginTop: '10px' }}>
+                <input
+                    type="text"
+                    value={userInput}
+                    onChange={handleInputChange}
+                    placeholder="Ask me anything..."
+                    style={{ 
+                        flex: 1, 
+                        padding: '10px', 
+                        borderRadius: '8px', 
+                        border: '1px solid #88d498', 
+                        marginRight: '10px', 
+                        backgroundColor: '#e0f5e6', 
+                        color: '#333' 
+                    }}
+                    disabled={loading}
+                />
+                <button 
+                    type="submit" 
+                    disabled={loading} 
+                    style={{ 
+                        padding: '10px', 
+                        borderRadius: '8px', 
+                        backgroundColor: '#63cdda', 
+                        color: 'white', 
+                        border: 'none', 
+                        fontFamily: 'Poppins, sans-serif', 
+                        fontWeight: 'bold',
+                        boxShadow: '0 2px 5px rgba(0, 0, 0, 0.15)' 
+                    }}
+                >
+                    Send
+                </button>
+            </form>
+        </div>
+    );
 };
 
 export default Chatbot;
