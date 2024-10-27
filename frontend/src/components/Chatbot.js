@@ -108,83 +108,66 @@ const Chatbot = () => {
 
     // Effect to add an initial greeting message
     useEffect(() => {
-        setChatHistory([{ user: '', bot: 'Hi, I am WellBot! How can I assist you today?' }]);
-    }, []);
+      setChatHistory([{ user: '', bot: 'Hi, I am WellBot! How can I assist you today?' }]);
+  }, []);
+  
+  const handleInputChange = (event) => {
+      setUserInput(event.target.value);
+  };
 
-    // Effect to scroll to the bottom of the chat container when chat history updates
-    useEffect(() => {
-        if (chatContainerRef.current) {
-            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-        }
-    }, [chatHistory]);
+  const handleSubmit = async (event) => {
+      event.preventDefault();
+      setLoading(true);
+      setChatHistory((prevChatHistory) => [
+          ...prevChatHistory,
+          { user: userInput, bot: '...' },
+      ]);
+      const botResponse = qaPairs[userInput] || "I'm sorry, I don't have an answer for that.";
+      setTimeout(() => {
+          setChatHistory((prevChatHistory) => [
+              ...prevChatHistory.slice(0, -1),
+              { user: userInput, bot: botResponse },
+          ]);
+          setLoading(false);
+          setUserInput('');
+      }, 1000);
+  };
 
-    const handleInputChange = (event) => {
-        setUserInput(event.target.value);
-    };
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        setLoading(true);
-
-        // Add the user's question to the chat history
-        setChatHistory((prevChatHistory) => [
-            ...prevChatHistory,
-            { user: userInput, bot: '...' }, // Placeholder while waiting for response
-        ]);
-
-        // Check if the user's input matches any predefined question
-        const botResponse = qaPairs[userInput] || "I'm sorry, I don't have an answer for that.";
-
-        // Simulate loading time for the bot response
-        setTimeout(() => {
-            // Update chat history with the bot's response
-            setChatHistory((prevChatHistory) => [
-                ...prevChatHistory.slice(0, -1), // Remove the placeholder
-                { user: userInput, bot: botResponse },
-            ]);
-            setLoading(false);
-            setUserInput(''); // Clear input field
-        }, 1000); // Simulate a 1-second delay for the response
-    };
-
-    return (
-        <div style={{ maxWidth: '500px', margin: '0 auto', padding: '20px', border: '1px solid #007BFF', borderRadius: '10px', boxShadow: '2px 2px 15px rgba(0, 123, 255, 0.5)', backgroundColor: '#1a1a2e' }}>
-            <h1 style={{ textAlign: 'center', color: '#fff' }}>WellBot</h1>
-            <div 
-                ref={chatContainerRef} // Attach the ref to the chat container
-                style={{ border: '1px solid #007BFF', padding: '10px', height: '300px', overflowY: 'scroll', borderRadius: '5px', backgroundColor: '#0f3460', color: '#fff' }}
-            >
-                {chatHistory.map((chat, index) => (
-                    <div key={index} style={{ marginBottom: '10px' }}>
-                        {chat.user && (
-                            <>
-                                <strong style={{ color: '#007BFF' }}>You:</strong> <span style={{ color: '#fff' }}>{chat.user}</span>
-                                <br />
-                            </>
-                        )}
-                        {chat.bot && (
-                            <>
-                                <strong style={{ color: '#00ffcc' }}>WellBot:</strong> <span style={{ color: '#fff' }}>{chat.bot}</span>
-                                <hr style={{ borderColor: '#007BFF' }} />
-                            </>
-                        )}
-                    </div>
-                ))}
-                {loading && <div style={{ color: '#fff' }}><em>Typing...</em></div>}
-            </div>
-            <form onSubmit={handleSubmit} style={{ display: 'flex', marginTop: '10px' }}>
-                <input
-                    type="text"
-                    value={userInput}
-                    onChange={handleInputChange}
-                    placeholder="Ask me anything..."
-                    style={{ flex: 1, padding: '10px', borderRadius: '5px', border: '1px solid #007BFF', marginRight: '10px', backgroundColor: '#0f3460', color: '#fff' }}
-                    disabled={loading} // Disable input while waiting for response
-                />
-                <button type="submit" disabled={loading} style={{ padding: '10px', borderRadius: '5px', backgroundColor: '#007BFF', color: 'white', border: 'none' }}>Send</button>
-            </form>
-        </div>
-    );
+  return (
+      <div className="chat-container">
+          <h1 className="app-title">WellBot</h1>
+          <div ref={chatContainerRef} style={{ maxHeight: '400px', overflowY: 'auto' }}>
+              {chatHistory.map((chat, index) => (
+                  <div key={index} style={{ marginBottom: '10px' }}>
+                      {chat.user && (
+                          <>
+                              <strong style={{ color: '#ff6a88' }}>You:</strong> <span>{chat.user}</span>
+                              <br />
+                          </>
+                      )}
+                      {chat.bot && (
+                          <>
+                              <strong style={{ color: '#ff9a8b' }}>WellBot:</strong> <span>{chat.bot}</span>
+                              <hr style={{ borderColor: '#ff6a88' }} />
+                          </>
+                      )}
+                  </div>
+              ))}
+              {loading && <div style={{ color: '#333' }}><em>Typing...</em></div>}
+          </div>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', marginTop: '10px' }}>
+              <input
+                  type="text"
+                  value={userInput}
+                  onChange={handleInputChange}
+                  placeholder="Ask me anything..."
+                  style={{ flex: 1, padding: '10px', borderRadius: '5px', border: '1px solid #ff6a88', marginRight: '10px', backgroundColor: '#f7e9df', color: '#333', transition: 'all 0.3s ease' }}
+                  disabled={loading}
+              />
+              <button type="submit" disabled={loading} style={{ padding: '10px', borderRadius: '5px', backgroundColor: '#ff9a8b', color: 'white', border: 'none', transition: 'all 0.3s ease' }}>Send</button>
+          </form>
+      </div>
+  );
 };
 
 export default Chatbot;
