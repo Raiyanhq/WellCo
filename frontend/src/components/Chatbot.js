@@ -8,7 +8,7 @@ const Chatbot = () => {
 
     // Predefined questions and answers
     const qaPairs = {
-         // WellCo Information
+         // WellCo Info
          
           "What is WellCo?": "WellCo is your wellness companion, dedicated to helping you achieve a balanced and fulfilling lifestyle by offering guidance on physical health, mental well-being, and self-care. I'm here to walk alongside you on your journey to a healthier and happier life.",
           "Can you tell me about WellCo?": "WellCo is designed to be your wellness guide, providing support for both physical health and emotional well-being. Think of me as a friend you can rely on when you're feeling lost or need that extra boost of motivation.",
